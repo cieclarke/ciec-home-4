@@ -21,7 +21,7 @@ export class Notes extends Component {
   }
   async getData() {
 
-    const posts = await Tumblr("QZZoo1PTjzR6zJpJQibwFshmEYjkdBw780HlKNr3lQWIWwxbUU");
+    const posts = await Tumblr(process.env.REACT_APP_TUMBLR_API);
     console.log(posts);
     this.setState({ posts: posts.response.posts, loading: false });
     

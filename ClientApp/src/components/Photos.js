@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import Flickr from '../lib/flickr';
 import { NavMenu } from './NavMenu';
+import dotenv from 'dotenv';
 
 export class Photos extends Component {
   static displayName = Photos.name;
@@ -10,6 +11,9 @@ export class Photos extends Component {
     super(props);
     this.state = { photos: [], tags: [], selectedTag: "", loading: true }
     //const [photos, updatePhotos] = useState([]);
+    //if (process.env.NODE_ENV !== 'production') {
+    //  dotenv.config
+    //}
   }
 
   componentDidMount() {
@@ -19,7 +23,10 @@ export class Photos extends Component {
   async getData() {
     let { tag } = this.props.match.params;
     tag = tag === undefined ? "all" : tag;
-    const allPhotos = await Flickr("61777036f4ecf11adb192f7156c6e92e", "https://api.flickr.com/services/rest", "67828456@N07");
+    const allPhotos = await Flickr(
+      process.env.REACT_APP_FLICKR_API,
+      process.env.REACT_APP_FLICKR_URI,
+      process.env.REACT_APP_FLICKR_USER);
     
     const tags = allPhotos.map((photo) => { return photo.tags; })
     .flat()
