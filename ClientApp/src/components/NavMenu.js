@@ -6,7 +6,7 @@ export class NavMenu extends Component {
   render () {
     return (
       <nav>
-          <div>
+          <div className="bg-blue-300">
               <div>
                   <a href="/">Home</a>
               </div>
@@ -18,7 +18,7 @@ export class NavMenu extends Component {
               </div>
               <div>
                   <a href="/Notes">Notes</a>
-              </div>                        
+              </div>
           </div>
       </nav>
     );

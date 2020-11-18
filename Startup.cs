@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using cieclarke.Lib;
+using System.Net.Http;
 
-namespace website
+namespace cieclarke
 {
     public class Startup
     {
@@ -20,8 +22,19 @@ namespace website
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            
             services.AddControllersWithViews();
+            services.AddHttpClient("FlickrService", c => { c.BaseAddress = new System.Uri(Configuration["FLICKR_URI"]); } );
+
+            services.AddScoped<IPhotoService>(c =>
+            {
+                var clientFactory = c.GetRequiredService<IHttpClientFactory>();
+                var httpClient = clientFactory.CreateClient("FlickrService");
+
+                return new FlickrService(httpClient, Configuration["FLICKR_API"], Configuration["FLICKR_USER"]);
+            }
+
+            );
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -32,7 +45,7 @@ namespace website
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        { 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -53,14 +66,27 @@ namespace website
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "recent",
+                    pattern: "Flickr/RecentPhotos/count",
+                    defaults: new { controller = "Flickr", action = "RecentPhotos"  }
+                );
+
+                endpoints.MapControllerRoute(
+                    name: "recent",
+                    pattern: "Flickr/Photos/{albumId?}",
+                    defaults: new { controller = "Flickr", action = "Photos" }
+                );
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+
             });
 
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
-
+                
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");

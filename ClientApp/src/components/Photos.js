@@ -1,130 +1,42 @@
-import React, { Component, useState } from 'react';
-import Flickr from '../lib/flickr';
+import React, { Component } from 'react';
+
 import { NavMenu } from './NavMenu';
-import dotenv from 'dotenv';
 
 export class Photos extends Component {
-  static displayName = Photos.name;
-  
+    static displayName = Photos.name;
 
-  constructor(props) {
-    super(props);
-    this.state = { photos: [], tags: [], selectedTag: "", loading: true }
-    //const [photos, updatePhotos] = useState([]);
-    //if (process.env.NODE_ENV !== 'production') {
-    //  dotenv.config
-    //}
-  }
+    constructor(props) {
+        super(props);
+        this.state = { photos: [] };    
+    }
 
-  componentDidMount() {
-    this.getData();
-  }
-  
-  async getData() {
-    let { tag } = this.props.match.params;
-    tag = tag === undefined ? "all" : tag;
-    const allPhotos = await Flickr(
-      process.env.REACT_APP_FLICKR_API,
-      process.env.REACT_APP_FLICKR_URI,
-      process.env.REACT_APP_FLICKR_USER);
-    
-    const tags = allPhotos.map((photo) => { return photo.tags; })
-    .flat()
-    .filter((word) => { return word.length > 0; })
-    .filter((tag, i, arr) => { return arr.indexOf(tag) === i; });
+    componentDidMount() {
+        fetch('/Flickr/RecentPhotos/4')
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                this.setState({ photos: data })
+            })
+    }
 
-    const taggedPhotos = allPhotos.filter(
-      (photo) => { return photo.tags.indexOf(tag) >= 0; }
-    );
+    render() {
+        return (
 
-    const photos = tags.indexOf(tag) >= 0 ? taggedPhotos : allPhotos;
+            <div id="home">
+                <div></div>
+                <div>
+                    <NavMenu />
+                    {this.state.photos.map((photo) => (
+                        <div>
+                            <p>{photo.Title}</p>
+                            <img src={photo.SizeURLs.MEDIUM} />
+                        </div>
+                    ))}
+                    
+                </div>
+            </div>
 
-    this.setState({ photos, tags, selectedTag: tag, loading: false });
-    
-  }
-
-  static imageClick = (src, event) => {
-    window.location.href = src;
-  }
-
-  static renderData (photos, tags, selectedTag) {
-    console.log(tags);
-    console.log(selectedTag);
-    return (
-      <main>
-        { tags.length > 0 ?
-          <div id="tags">
-            { selectedTag === "all" ? 
-              <div id="selected"><a href="/Photos">all</a></div> :
-              <div><a href="/Photos">all</a></div>
-            }
-            { tags.map(tag =>
-                tag.toUpperCase() === selectedTag.toUpperCase() ?
-                <div id="selected">
-                  
-                  <a href={`/Photos/${tag}`}>{tag}</a></div> :
-                <div><a href={`/Photos/${tag}`}>{tag}</a></div>
-
-            )}
-          </div>
-          :
-          <h1>All photos from albums</h1>
-
-        }
-         <div id="images">
-            {photos.map(photo => {
-                  const style = {
-                      "background-image": "url(' " + photo.sizes['Medium'].source + "')"
-                  };
-                  return (
-                  <div class="photoDisplay" style={style} onClick={(e) => this.imageClick(photo.sizes['Large'].source, e)} >
-                      <h3>{photo.title}</h3>
-                      <a href={ photo.sizes['Large'].source }>
-                          <img alt={photo.title} src={ photo.sizes['Medium'].source } />
-                      </a>
-                      <dl>
-                          <dt>Focal Length</dt>
-                          <dd>{ photo.exif.FocalLength }</dd>
-                          <dt>ISO</dt>
-                          <dd>{ photo.exif.ISO }</dd>
-                          <dt>Exposure Time</dt>
-                          <dd>{ photo.exif.ExposureTime }</dd>
-                          <dt>F</dt>
-                          <dd>{ photo.exif.FNumber }</dd>
-                          <dt>Lens Model</dt>
-                          <dd>{ photo.exif.LensModel }</dd>
-                      </dl>
-                  </div>
-                  )}
-              )}
-          </div>
-      </main>
-
-    );
-  }
-
-  static renderLoading () {
-    return (
-      <p><em>Loading...</em></p>
-    )
-  }
-
-  render () {
-
-    let contents = this.state.loading
-    ? Photos.renderLoading()
-    : Photos.renderData(this.state.photos, this.state.tags, this.state.selectedTag);
-
-    return (
-      <div id="photos">
-        <div></div>
-        <div>
-          <NavMenu />
-          {contents}
-        </div>
-      </div>
-
-    );
-  }
-
+        );
+    }
 }

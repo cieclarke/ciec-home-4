@@ -7,7 +7,7 @@ import { Work } from './components/Work';
 import { Notes } from './components/Notes';
 import { FourZeroFour } from './components/404';
 
-import './css/main.scss'
+import './css/main.css'
 
 export default class App extends Component {
   static displayName = App.name;
@@ -16,7 +16,7 @@ export default class App extends Component {
     return (
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route path='/Photos/:tag?' component={Photos} />
+        <Route path='/Photos' component={Photos} />
         <Route path='/Work' component={Work} />
         <Route path='/Notes' component={Notes} />
         <Route path="*" component={FourZeroFour} />

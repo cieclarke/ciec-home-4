@@ -21,7 +21,7 @@ export class Home extends Component {
                         The photos from Flickr are taken by me.
                         </p>
                         <p>
-                        Developed with ReactJS on ASP.NET Core, the website displays the information from the external APIs.
+                        Developed with ReactJS on ASP.NET Core using TailwindCSS, the website displays the information from the external APIs.
                         A systemctl service on rasbperry pi server regulary pulls the master branch from a GIT repository and runs this build and deploy.
                         </p>
                     </div>
