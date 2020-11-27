@@ -1,65 +1,52 @@
-import React, { Component } from 'react';
-import Tumblr from '../lib/tumblr';
+import React, { Component, useState } from 'react';
+
 import { NavMenu } from './NavMenu';
 
 export class Notes extends Component {
-  static displayName = Notes.name;
+    static displayName = Notes.name;
 
-  constructor(props) {
-    super(props);
-    this.state = { posts: [], loading: true };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            tumblr: { response: { posts: [] } } };
+    }
 
-  componentDidMount() {
-    this.getData();
-  }
+    componentDidMount() {
 
-  static renderLoading () {
-    return (
-      <div><em>Loading...</em></div>
-    )
-  }
-  async getData() {
+        this.loadBlogs();
 
-    const posts = await Tumblr(process.env.REACT_APP_TUMBLR_API);
-    console.log(posts);
-    this.setState({ posts: posts.response.posts, loading: false });
-    
-  }
+    }
 
-  static renderData(posts) {
-    return (
-      <div>
-        {
-          posts.map(post => 
-           <div>
-            <a href={post.url}>
-                {post.title}    
-            </a>
-          </div>)
-        }
-      </div>
-    );
-  }
+    loadBlogs() {
 
-  render () {
-      
-    let contents = this.state.loading
-    ? Notes.renderLoading()
-    : Notes.renderData(this.state.posts);
+        fetch('/Tumblr/Links')
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                this.setState({ tumblr: data })
+            });
+    }
 
-  return (
-    <div id="notes">
-        <div></div>
-        <div>
-        <NavMenu />
-            <main>
-              <h1>Collected articles and links</h1>
-              {contents}
-            </main>
-        </div>
-    </div>
+    render() {
 
-    );
-  }
+        return (
+
+            <div className="relative">
+                <div className="container opacity-25 bg-home-page bg-center bg-no-repeat h-screen min-w-full"></div>
+                <div className="absolute top-0 left-0 w-full">
+                    <div>
+                        <NavMenu />
+                        <h1 className=" p-2 cc-notes">Collected articles and links</h1>
+                        <div className="pb-2 divide-solid divide-y-2 divide-hotpink-700">
+                        {this.state.tumblr.response.posts.map((post) => (
+                            <div className="p-2 text-rosybrown-100">{post.title}</div>
+                        ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        );
+    }
 }

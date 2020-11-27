@@ -25,6 +25,7 @@ namespace cieclarke
             
             services.AddControllersWithViews();
             services.AddHttpClient("FlickrService", c => { c.BaseAddress = new System.Uri(Configuration["FLICKR_URI"]); } );
+            services.AddHttpClient("TumblrService", c => { c.BaseAddress = new System.Uri(Configuration["TUMBLR_URI"]); });
 
             services.AddScoped<IPhotoService>(c =>
             {
@@ -32,9 +33,18 @@ namespace cieclarke
                 var httpClient = clientFactory.CreateClient("FlickrService");
 
                 return new FlickrService(httpClient, Configuration["FLICKR_API"], Configuration["FLICKR_USER"]);
-            }
+            });
 
-            );
+            services.AddScoped<IBlogService>(c =>
+            {
+                var clientFactory = c.GetRequiredService<IHttpClientFactory>();
+                var httpClient = clientFactory.CreateClient("TumblrService");
+
+                return new TumblrService(httpClient, Configuration["TUMBLR_API"]);
+
+            });
+
+         
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -72,9 +82,15 @@ namespace cieclarke
                 );
 
                 endpoints.MapControllerRoute(
-                    name: "recent",
+                    name: "albumPhotos",
                     pattern: "Flickr/Photos/{albumId?}",
                     defaults: new { controller = "Flickr", action = "Photos" }
+                );
+
+                endpoints.MapControllerRoute(
+                    name: "links",
+                    pattern: "Tumblr/Links/",
+                    defaults: new { controller = "Tumblr", action = "Links" }
                 );
 
                 endpoints.MapControllerRoute(

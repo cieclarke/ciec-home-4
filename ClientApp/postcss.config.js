@@ -1,8 +1,13 @@
+const dotenv = require('dotenv').config();
+const colors = require('tailwindcss/colors')
 
-const tailwindcss = require('tailwindcss');
+let tailwindcss;
+
+tailwindcss = require('tailwindcss');
+
 module.exports = {
     plugins: [
-        tailwindcss('./tailwind.config.js'),
+        tailwindcss('./website-css-config.js'),
         require('autoprefixer')
     ],
 };

@@ -1,0 +1,30 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+/* https://tailwind.ink #33403C */ 
+
+body {
+    @apply bg-darksalmon-700;
+}
+
+.cc-home {
+    @apply bg-salmon-600;
+}
+
+.cc-photos {
+    @apply bg-lightslategray-700;
+}
+.cc-photos-selected {
+    @apply bg-lightslategray-500;
+}
+
+.cc-work {
+    @apply bg-darkseagreen-400;
+}
+
+.cc-notes {
+    @apply bg-hotpink-700;
+}
