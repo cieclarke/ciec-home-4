@@ -68,36 +68,44 @@ export class Photos extends Component {
     }
 
     renderContent() {
-        return <div>
-            <div className={this.state.selectedAlbum.id === 0 ? "cc-photos-selected" : "cc-photos"} >
-                <button onClick={() => { this.loadRecentPhotos(3) }}>Recent</button>
-            </div>
-            {this.state.albums.map((album) => (
-                <div className={this.state.selectedAlbum.id === album.id ? "cc-photos-selected" : "cc-photos"} >
-                    <button onClick={() => { this.loadPhotos(album) }}>{album.title}</button>
-                </div>
-            ))}
-
-            {this.state.photos.map((photo) => (
+        return (
+            <div>
                 <div>
-                    <div className="bg-blue-3">{photo.Title}</div>
-                    <img alt={photo.Title} src={photo.SizeURLs.MEDIUM} />
+                    <div className={this.state.selectedAlbum.id === 0 ? "cc-photos-selected" : "cc-photos"} >
+                        <button onClick={() => { this.loadRecentPhotos(3) }}>Recent</button>
+                    </div>
+                    {this.state.albums.map((album) => (
+                        <div className={this.state.selectedAlbum.id === album.id ? "cc-photos-selected" : "cc-photos"} >
+                            <button onClick={() => { this.loadPhotos(album) }}>{album.title}</button>
+                        </div>
+                    ))}
                 </div>
-            ))}
-
-        </div>
+                <div id="images">
+                    {this.state.photos.map((photo) => (
+                        <div className="">
+                            <div style={{ backgroundImage: "url('" + photo.SizeURLs.MEDIUM + "')" }}
+                                className="bg-left-top bg-no-repeat bg-cover h-40 ">
+                                <div className="bg-cornflowerblue-700 bg-opacity-75">
+                                    <p>{photo.Title}</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     render() {
 
         return (
-
-            <div className="relative">
-                <div className="container opacity-25 bg-home-page bg-center bg-no-repeat h-screen min-w-full"></div>
-                <div className="absolute top-0 left-0 w-full">
+            <div id="content">
+                <div></div>
+                <div>
                     <div>
                         <NavMenu />
-                    {this.state.isAlbumsLoading && this.state.isPhotosLoading ? this.renderLoader() : this.renderContent()}
+                        {this.state.isAlbumsLoading && this.state.isPhotosLoading ? this.renderLoader() : this.renderContent()}
                     </div>
                 </div>
             </div>

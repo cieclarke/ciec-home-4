@@ -4,27 +4,106 @@
 
 @tailwind utilities;
 
-/* https://tailwind.ink #33403C */ 
+/* https://tailwind.ink #EED335 */
+
+a {
+    @apply text-goldenrod-100;
+}
 
 body {
-    @apply bg-darksalmon-700;
+    @apply bg-olive-900;
+}
+
+h1 {
+    @apply p-2;
+    @apply text-base;
+    @apply font-bold;
+    @apply text-darkorange-300;
+    @apply no-underline;
+}
+
+h2 {
+    @apply p-2;
+    @apply text-base;
+    @apply font-bold;
+    @apply text-darkorange-300;
+    @apply no-underline;
+}
+
+p {
+    @apply p-2;
+    @apply text-justify;
+    @apply text-goldenrod-100;
+}
+
+    p > a {
+        @apply underline;
+    }
+
+.cc-divide {
+    @apply pb-2;
+    @apply divide-solid;
+    @apply divide-y-2;
 }
 
 .cc-home {
-    @apply bg-salmon-600;
+    @apply bg-limegreen-900;
 }
 
 .cc-photos {
-    @apply bg-lightslategray-700;
+    @apply bg-cornflowerblue-900;
 }
+
 .cc-photos-selected {
-    @apply bg-lightslategray-500;
+    @apply bg-cornflowerblue-700;
 }
 
 .cc-work {
-    @apply bg-darkseagreen-400;
+    @apply bg-goldenrod-900;
+}
+
+.cc-work-divide {
+    @apply divide-goldenrod-900;
 }
 
 .cc-notes {
-    @apply bg-hotpink-700;
+    @apply bg-crimson-900;
+}
+
+.cc-notes-divide {
+    @apply divide-crimson-900;
+}
+
+#content {
+    @apply relative;
+}
+
+#content > div:nth-of-type(1) {
+    @apply container;
+    @apply opacity-25;
+    @apply bg-home-page;
+    @apply bg-center;
+    @apply bg-no-repeat;
+    @apply h-screen;
+    @apply min-w-full;
+}
+
+#content > div:nth-of-type(2) {
+    @apply absolute;
+    @apply top-0;
+    @apply left-0;
+    @apply w-full;
+}
+
+
+#images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#images > div {
+    flex-grow: 1;
+    flex: 1 1 100%;
 }

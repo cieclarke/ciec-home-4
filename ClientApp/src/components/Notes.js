@@ -8,7 +8,8 @@ export class Notes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tumblr: { response: { posts: [] } } };
+            tumblr: { response: { posts: [] } }
+        };
     }
 
     componentDidMount() {
@@ -32,16 +33,18 @@ export class Notes extends Component {
 
         return (
 
-            <div className="relative">
-                <div className="container opacity-25 bg-home-page bg-center bg-no-repeat h-screen min-w-full"></div>
-                <div className="absolute top-0 left-0 w-full">
+            <div id="content">
+                <div></div>
+                <div>
                     <div>
                         <NavMenu />
-                        <h1 className=" p-2 cc-notes">Collected articles and links</h1>
-                        <div className="pb-2 divide-solid divide-y-2 divide-hotpink-700">
-                        {this.state.tumblr.response.posts.map((post) => (
-                            <div className="p-2 text-rosybrown-100">{post.title}</div>
-                        ))}
+                        <h1 className="cc-notes">Collected articles and links</h1>
+                        <div className="cc-divide cc-notes-divide">
+                            {this.state.tumblr.response.posts.map((post) => (
+                                <div className="p-2">
+                                    <a href={post.url}>{post.title}</a>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
