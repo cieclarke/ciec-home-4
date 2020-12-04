@@ -31,7 +31,7 @@ namespace cieclarke.Lib
             var query = HttpUtility.ParseQueryString(uri.Query);
 
             query["method"] = "flickr.photosets.getPhotos";
-            query["extras"] = "tags,url_sq,url_t,url_s,url_m,url_o,date_upload";
+            query["extras"] = "tags,url_sq,url_t,url_s,url_m,date_upload";
             query["user_id"] = this.user;
             query["api_key"] = this.api;
             query["photoset_id"] = album.ID;
@@ -56,7 +56,6 @@ namespace cieclarke.Lib
                         sizeUrls.Add(PhotoSizeType.THUMBNAIL, new Uri(photosetsNode.Attributes["url_t"].Value));
                         sizeUrls.Add(PhotoSizeType.SMALL, new Uri(photosetsNode.Attributes["url_s"].Value));
                         sizeUrls.Add(PhotoSizeType.MEDIUM, new Uri(photosetsNode.Attributes["url_m"].Value));
-                        //sizeUrls.Add(PhotoSizeType.ORIGINAL, new Uri(photosetsNode.Attributes["url_o"].Value));
 
                         Photo photo = new Photo
                         {
@@ -162,7 +161,6 @@ namespace cieclarke.Lib
                         sizeUrls.Add(PhotoSizeType.THUMBNAIL, new Uri(photosetsNode.Attributes["url_t"].Value));
                         sizeUrls.Add(PhotoSizeType.SMALL, new Uri(photosetsNode.Attributes["url_s"].Value));
                         sizeUrls.Add(PhotoSizeType.MEDIUM, new Uri(photosetsNode.Attributes["url_m"].Value));
-                        //sizeUrls.Add(PhotoSizeType.ORIGINAL, new Uri(photosetsNode.Attributes["url_o"].Value));
 
                         Photo photo = new Photo
                         {

@@ -14,6 +14,10 @@ body {
     @apply bg-olive-900;
 }
 
+body::before {
+    content: "Beta Release ReactJS version";
+}
+
 h1 {
     @apply p-2;
     @apply text-base;
@@ -36,9 +40,9 @@ p {
     @apply text-goldenrod-100;
 }
 
-    p > a {
-        @apply underline;
-    }
+p > a {
+    @apply underline;
+}
 
 .cc-divide {
     @apply pb-2;
@@ -52,10 +56,12 @@ p {
 
 .cc-photos {
     @apply bg-cornflowerblue-900;
+    @apply text-center;
 }
 
 .cc-photos-selected {
-    @apply bg-cornflowerblue-700;
+    @apply underline;
+    @apply cc-photos;
 }
 
 .cc-work {
@@ -95,15 +101,3 @@ p {
     @apply w-full;
 }
 
-
-#images {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-#images > div {
-    flex-grow: 1;
-    flex: 1 1 100%;
-}

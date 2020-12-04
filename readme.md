@@ -2,22 +2,25 @@
 
 ## Summary
 
-This website uses Flickr and Tumblr as it's datastores and is built using the ReactJS platform. More to come.
+This website uses Flickr and Tumblr as it's datastores and is built using the ReactJS platform. TailwindCSS is used for layout.
 
 ## Environment variables
 
-- FLICKR_API
-- FLICKR_USER
-- FLICKR_URI="https://api.flickr.com/services/rest"
-- TUMBLR_API
+### appsettings.json
 
-## Building files
+`{`
+   ` ...`
+` "FLICKR_API": "...",`
+  `"FLICKR_USER": "...",`
+  `"FLICKR_URI": "...",`
+  `"TUMBLR_API": "...",`
+  `"TUMBLR_URI": "..."`
+`}`
 
-`dotnet build`
 
 ## Development notes
 
-This site is deployed to a Raspberry Pi development server. More to come.
+This site is deployed to a Raspberry Pi development server. More to come regarding TailwindCSS, ASP.NET app settings & ReactJS.
 
 ## systemctl examples
 
@@ -29,9 +32,8 @@ This site is deployed to a Raspberry Pi development server. More to come.
                 cd cieclarke.com
                 git fetch
                 git checkout origin/stage
-                npm install
-                npm run build
-                rsync /build/stage.cieclarke.com/*.* /www/stage.cieclarke.com
+                dotnet publish ...
+                rsync /build/stage.cieclarke.com/**/*.* /www/stage.cieclarke.com
 
 ### serivce
 
@@ -40,16 +42,6 @@ This site is deployed to a Raspberry Pi development server. More to come.
                 Wants=cieclarke.com.deploy-live.timer
 
                 [Service]
-                Environment=NODE_ENV="production"
-                Environment=NODE_PATH=/usr/lib/node_modules
-                Environment=FLICKR_API=""
-                Environment=FLICKR_USER=""
-                Environment=TUMBLR_API=""
-                Environment=FTP_USER="dev"
-                Environment=FTP_PASSWORD=""
-                Environment=FTP_HOST="ftp.com"
-                Environment=DEPLOYMENT_FOLDER="/live.cieclarke.com"
-                Environment=DEPLOYMENT_TYPE="FOLDER"
                 WorkingDirectory=/naboo/src
                 User=cieclarke
                 ExecStart=/naboo/bin/ciec-deploy

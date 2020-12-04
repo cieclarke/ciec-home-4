@@ -11,7 +11,6 @@ namespace cieclarke.Lib
     public class TumblrService : IBlogService
     {
         private readonly HttpClient httpClient;
-        private readonly string user;
         private readonly string api;
         private readonly Uri baseAddress;
 

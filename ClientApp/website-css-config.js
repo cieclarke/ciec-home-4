@@ -8,6 +8,9 @@ module.exports = {
   purge: [],
   theme: {
       extend: {
+          flex: {
+              '2': '1 1 50%'
+          },
           colors: {
               brand: '#EED335',
               goldenrod: {
