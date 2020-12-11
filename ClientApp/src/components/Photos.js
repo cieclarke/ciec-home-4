@@ -78,7 +78,7 @@ export class Photos extends Component {
         this.state.isTouchMoved = false;
     }
 
-    renderLoader() {
+    renderLoader() {    
         return <div>
             Loading
         </div>
@@ -108,7 +108,7 @@ export class Photos extends Component {
                                 onTouchmove={(e) => { this.moveEvent(e) }}
                                 style={{ backgroundImage: "url('" + photo.SizeURLs.MEDIUM + "')" }}
                                 className="bg-left-top bg-no-repeat bg-cover h-40 ">
-                                <div className="bg-black bg-opacity-30">
+                                <div className="bg-gradient-to-r from-cornflowerblue-800">
                                     <p>{photo.Title}</p>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@ export class Photos extends Component {
     render() {
 
         return (
-            <div id="content" className="md:w-9/12 lg:w-10/12 mx-auto">
+            <div id="content">
                 <div></div>
                 <div>
                     <div>

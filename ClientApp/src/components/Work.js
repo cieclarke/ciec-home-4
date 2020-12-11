@@ -23,7 +23,7 @@ export class Work extends Component {
                                     </a>
                                         </p>
                                 </div>
-                                <div>
+                                <div className="hidden">
                                     <h2>Libert&egrave; d'Expression</h2>
                                     <p>A PHP project implementing the Yii MVC framework via Composer as dependency manager.</p>
                                     <p>Worked on with a previous colleague <a href="https://www.nickbergquist.uk/">Nick Bergquist</a></p>
