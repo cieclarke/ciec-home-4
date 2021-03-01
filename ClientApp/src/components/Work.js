@@ -18,10 +18,18 @@ export class Work extends Component {
                                 <div>
                                     <h2>cieclarke.com</h2>
                                     <p>
-                                    <a href="https://github.com/cieclarke/ciec-home-4">
-                                            Website Source Code
-                                    </a>
-                                        </p>
+                                        <a href="https://github.com/cieclarke/ciec-home-4">
+                                                Website Source Code
+                                        </a>
+                                    </p>
+                                </div>
+                                <div>
+                                    <h2>RoR ongoing implementation of cieclarke.com</h2>
+                                    <p>
+                                        <a href="https://github.com/cieclarke/ciec-home-ror">
+                                            Current Source Code
+                                        </a>
+                                    </p>
                                 </div>
                                 <div className="hidden">
                                     <h2>Libert&egrave; d'Expression</h2>
